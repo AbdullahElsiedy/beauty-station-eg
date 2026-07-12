@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Beauty Station EG - مستحضرات تجميل وعناية بالبشرة أصلية 100%، بإشراف صيدلانية متخصصة.">
+<title>Beauty Station EG | بيوتي ستيشن</title>
+<style>
+:root {
+  --ink: #241220;
+  --ink-soft: #6b5566;
+  --rose: #d1467c;
+  --rose-deep: #b52f66;
+  --rose-soft: #f8dbe7;
+  --violet: #7c4dd1;
+  --violet-soft: #ece2fb;
+  --gold: #ad823f;
+  --gold-soft: #f1e2c4;
+  --gradient: linear-gradient(135deg, var(--rose), var(--violet));
+  --paper: #fdf6f8;
+  --card: #ffffff;
+  --line: rgba(36, 18, 32, 0.1);
+  --shadow-sm: 0 2px 10px rgba(36, 18, 32, 0.06);
+  --shadow-md: 0 14px 34px rgba(124, 42, 87, 0.14);
+  --shadow-lg: 0 24px 60px rgba(124, 42, 87, 0.18);
+  --radius-s: 10px;
+  --radius-m: 18px;
+  --radius-l: 28px;
+  --font-ar: Tahoma, "Segoe UI", Arial, sans-serif;
+  --font-en: Georgia, "Times New Roman", serif;
+  --font-en-ui: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+}
+
+:root[data-theme="dark"] {
+  --ink: #f5ecf1;
+  --ink-soft: #c9b3c3;
+  --paper: #1c1219;
+  --card: #2a1c26;
+  --line: rgba(255, 255, 255, 0.1);
+  --rose-soft: #3a1f2c;
+  --violet-soft: #2b2140;
+  --gold-soft: #3a3021;
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 14px 34px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #f5ecf1;
+    --ink-soft: #c9b3c3;
+    --paper: #1c1219;
+    --card: #2a1c26;
+    --line: rgba(255, 255, 255, 0.1);
+    --rose-soft: #3a1f2c;
+    --violet-soft: #2b2140;
+    --gold-soft: #3a3021;
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 14px 34px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.5);
+  }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.bs-root {
+  font-family: var(--font-ar);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.7;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.bs-root[dir="ltr"] { font-family: var(--font-en-ui); }
+.bs-root[dir="ltr"] .display { font-family: var(--font-en); }
+
+.bs-container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.bs-root a { text-decoration: none; color: inherit; }
+.bs-root ul { list-style: none; }
+.bs-root button { font-family: inherit; cursor: pointer; border: none; background: none; }
+.bs-root img, .bs-root svg { max-width: 100%; display: block; }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--rose-deep);
+}
+.bs-root[dir="rtl"] .eyebrow { letter-spacing: 0; text-transform: none; font-size: 0.85rem; }
+
+/* Reveal on scroll */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* Header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  transition: box-shadow 0.3s;
+}
+.site-header.scrolled { box-shadow: var(--shadow-sm); }
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 78px;
+  gap: 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 1.3rem;
+  white-space: nowrap;
+}
+
+.logo-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: var(--gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.logo-eg {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.main-nav { display: flex; gap: 30px; font-weight: 600; font-size: 0.95rem; }
+.main-nav a { position: relative; padding: 6px 0; color: var(--ink-soft); transition: color 0.2s; }
+.main-nav a:hover { color: var(--rose-deep); }
+
+.header-actions { display: flex; align-items: center; gap: 10px; }
+
+.lang-btn {
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 8px 16px;
+  border-radius: 999px;
+  transition: all 0.2s;
+}
+.lang-btn:hover { background: var(--gradient); color: white; border-color: transparent; }
+
+.header-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 700;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+.header-cta:hover { background: var(--rose-deep); }
+
+.nav-toggle { display: none; font-size: 1.5rem; color: var(--ink); }
+
+*:focus-visible { outline: 2px solid var(--violet); outline-offset: 2px; }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 15px 30px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.97rem;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--gradient); color: white; box-shadow: var(--shadow-md); }
+.btn-whatsapp { background: var(--card); color: #1f9c4f; border: 1.5px solid #1f9c4f; }
+.btn-whatsapp:hover { background: #1f9c4f; color: white; }
+
+/* Hero */
+.hero { padding: 64px 0 50px; position: relative; }
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -10% -10% auto -10%;
+  height: 480px;
+  background: radial-gradient(closest-side, var(--rose-soft), transparent 70%),
+              radial-gradient(closest-side, var(--violet-soft), transparent 65%) 80% 20% / 60% 60% no-repeat;
+  z-index: -1;
+  opacity: 0.9;
+}
+
+.hero-inner { display: flex; align-items: center; gap: 56px; }
+.hero-text { flex: 1.05; }
+
+.hero-text h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.22;
+  margin: 20px 0 20px;
+  text-wrap: balance;
+}
+.bs-root[dir="ltr"] .hero-text h1 { font-weight: 400; }
+
+.hero-text .accent { color: var(--rose-deep); font-style: italic; }
+
+.hero-text p {
+  color: var(--ink-soft);
+  font-size: 1.08rem;
+  margin-bottom: 30px;
+  max-width: 500px;
+}
+
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 40px; }
+
+.hero-stats { display: flex; gap: 34px; flex-wrap: wrap; }
+.hero-stat strong { display: block; font-size: 1.5rem; font-weight: 800; color: var(--ink); }
+.hero-stat span { font-size: 0.82rem; color: var(--ink-soft); font-weight: 600; }
+
+.hero-visual { flex: 0.95; display: flex; align-items: center; justify-content: center; }
+
+.bottle-mock {
+  position: relative;
+  width: 260px;
+  height: 340px;
+}
+.bottle-cap {
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 90px; height: 46px;
+  background: var(--ink);
+  border-radius: 12px 12px 4px 4px;
+}
+.bottle-body {
+  position: absolute;
+  top: 40px; left: 10px;
+  width: 240px; height: 300px;
+  border-radius: 40px 40px 54px 54px;
+  background: var(--gradient);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.bottle-body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(200deg, rgba(255,255,255,0.35), transparent 45%);
+}
+.bottle-label {
+  position: absolute;
+  left: 24px; right: 24px; top: 120px;
+  height: 92px;
+  background: color-mix(in srgb, white 92%, transparent);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  box-shadow: var(--shadow-sm);
+}
+.bottle-label .lb-icon { font-size: 1.4rem; }
+.bottle-label .lb-name { font-size: 0.72rem; font-weight: 800; color: var(--ink); letter-spacing: 0.04em; }
+
+.float-badge {
+  position: absolute;
+  background: var(--card);
+  border-radius: 999px;
+  box-shadow: var(--shadow-md);
+  padding: 10px 16px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  animation: bob 5s ease-in-out infinite;
+}
+.float-badge.b1 { top: 6px; inset-inline-start: -20px; color: var(--rose-deep); }
+.float-badge.b2 { bottom: 30px; inset-inline-end: -24px; color: var(--violet); animation-delay: -2.4s; }
+
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@media (prefers-reduced-motion: reduce) { .float-badge { animation: none; } }
+
+/* Trust strip */
+.trust-strip { padding: 6px 0 60px; }
+.trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.trust-chip {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
+}
+.trust-chip .ic {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--rose-soft); color: var(--rose-deep);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0;
+}
+.trust-chip p { font-size: 0.86rem; font-weight: 700; }
+.trust-chip small { display: block; font-weight: 500; color: var(--ink-soft); font-size: 0.76rem; margin-top: 2px; }
+
+/* Section frame */
+.section { padding: 78px 0; }
+.section-alt { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.section-head { text-align: center; max-width: 620px; margin: 0 auto 44px; }
+.section-head .eyebrow { justify-content: center; margin-bottom: 12px; }
+.section-head h2 { font-size: 2.1rem; font-weight: 800; margin-bottom: 12px; text-wrap: balance; }
+.section-head p { color: var(--ink-soft); }
+
+/* Bestsellers */
+.best-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px; }
+.best-card {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  padding: 26px 20px 22px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.best-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.best-ribbon {
+  position: absolute;
+  top: 14px; inset-inline-start: 14px;
+  background: var(--gold-soft);
+  color: var(--gold);
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 5px 10px;
+  border-radius: 999px;
+}
+.best-icon { font-size: 2.6rem; margin: 10px 0 14px; }
+.best-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+.best-card .stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 6px; }
+.best-card .price { font-weight: 800; color: var(--rose-deep); font-variant-numeric: tabular-nums; }
+
+/* Filters + Products */
+.filters { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 40px; }
+.filter-btn {
+  padding: 10px 22px; border-radius: 999px;
+  border: 1.5px solid var(--line);
+  background: var(--card);
+  font-weight: 600; font-size: 0.9rem;
+  color: var(--ink-soft);
+  transition: all 0.2s;
+}
+.filter-btn:hover { color: var(--rose-deep); }
+.filter-btn.active { background: var(--gradient); color: white; border-color: transparent; box-shadow: var(--shadow-sm); }
+
+.products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 24px; }
+
+.product-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s, box-shadow 0.25s;
+  display: flex;
+  flex-direction: column;
+}
+.product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+
+.product-thumb { height: 168px; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+.product-body { padding: 18px 20px 22px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
+.product-cat { font-size: 0.72rem; font-weight: 700; color: var(--violet); text-transform: uppercase; letter-spacing: 0.06em; }
+.bs-root[dir="rtl"] .product-cat { text-transform: none; letter-spacing: 0; }
+.product-name { font-weight: 700; font-size: 1.02rem; }
+.product-price { font-weight: 800; color: var(--rose-deep); font-size: 1.05rem; margin-top: auto; font-variant-numeric: tabular-nums; }
+
+.product-order {
+  margin-top: 10px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 11px; border-radius: var(--radius-s);
+  background: color-mix(in srgb, #1f9c4f 12%, transparent);
+  color: #1f9c4f;
+  font-weight: 700; font-size: 0.88rem;
+  transition: background 0.2s, color 0.2s;
+}
+.product-order:hover { background: #1f9c4f; color: white; }
+
+/* About */
+.about-inner { display: flex; align-items: center; gap: 60px; }
+.about-visual { flex: 0.8; display: flex; justify-content: center; }
+.about-card {
+  width: 300px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  padding: 34px 28px;
+  box-shadow: var(--shadow-md);
+  text-align: center;
+}
+.about-avatar {
+  width: 92px; height: 92px; margin: 0 auto 16px;
+  border-radius: 50%;
+  background: var(--gradient);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.4rem; color: white;
+}
+.about-card h4 { font-size: 1.05rem; font-weight: 800; margin-bottom: 4px; }
+.about-card span { font-size: 0.82rem; color: var(--ink-soft); }
+.about-badges { display: flex; gap: 8px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
+.about-badges span {
+  background: var(--gold-soft); color: var(--gold);
+  font-size: 0.72rem; font-weight: 800;
+  padding: 6px 12px; border-radius: 999px;
+}
+
+.about-text { flex: 1.2; }
+.about-text h2 { font-size: 1.9rem; font-weight: 800; margin-bottom: 18px; text-wrap: balance; }
+.about-text > p { color: var(--ink-soft); margin-bottom: 22px; }
+.about-list { display: flex; flex-direction: column; gap: 12px; }
+.about-list li { display: flex; align-items: flex-start; gap: 10px; font-weight: 600; }
+.about-list li .tick {
+  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+  background: var(--rose-soft); color: var(--rose-deep);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.72rem; margin-top: 2px;
+}
+
+/* Testimonials */
+.tst-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.tst-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  padding: 26px;
+  box-shadow: var(--shadow-sm);
+}
+.tst-stars { color: var(--gold); margin-bottom: 12px; font-size: 0.9rem; }
+.tst-quote { color: var(--ink); font-size: 0.96rem; margin-bottom: 20px; }
+.tst-person { display: flex; align-items: center; gap: 10px; }
+.tst-avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--violet-soft); color: var(--violet);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 0.85rem;
+}
+.tst-person strong { font-size: 0.88rem; display: block; }
+.tst-person small { color: var(--ink-soft); font-size: 0.76rem; }
+
+/* FAQ */
+.faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+.faq-item { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-m); overflow: hidden; }
+.faq-q {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 22px; font-weight: 700; text-align: start;
+}
+.faq-q .plus { transition: transform 0.25s; color: var(--rose-deep); font-size: 1.2rem; }
+.faq-item.open .plus { transform: rotate(45deg); }
+.faq-a {
+  max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;
+  padding: 0 22px; color: var(--ink-soft); font-size: 0.92rem;
+}
+.faq-item.open .faq-a { max-height: 200px; padding: 0 22px 20px; }
+
+/* Footer */
+.site-footer { background: var(--ink); color: var(--paper); padding: 64px 0 26px; }
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+.footer-brand .logo-text { color: var(--paper); font-weight: 800; font-size: 1.2rem; }
+.footer-brand p { color: color-mix(in srgb, var(--paper) 62%, transparent); margin-top: 12px; font-size: 0.9rem; max-width: 280px; }
+.footer-social { display: flex; gap: 10px; margin-top: 18px; }
+.footer-social a {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: center;
+}
+.footer-social a:hover { background: var(--gradient); }
+
+.footer-col h5 { font-size: 0.85rem; font-weight: 800; margin-bottom: 16px; letter-spacing: 0.04em; color: color-mix(in srgb, var(--paper) 90%, transparent); }
+.footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+.footer-col a, .footer-col li { font-size: 0.88rem; color: color-mix(in srgb, var(--paper) 68%, transparent); }
+.footer-col a:hover { color: var(--paper); }
+
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+  margin-top: 24px;
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--paper) 45%, transparent);
+}
+
+/* Floating WhatsApp */
+.float-whatsapp {
+  position: fixed;
+  bottom: 26px;
+  inset-inline-end: 26px;
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.7rem;
+  box-shadow: 0 12px 28px rgba(37, 211, 102, 0.45);
+  z-index: 200;
+  animation: pulse 2.6s infinite;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+  70% { box-shadow: 0 0 0 16px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+@media (prefers-reduced-motion: reduce) { .float-whatsapp { animation: none; } }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero-inner, .about-inner { flex-direction: column; text-align: center; }
+  .hero-text p { max-width: none; margin-inline: auto; }
+  .hero-actions, .hero-stats { justify-content: center; }
+  .trust-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-visual { order: -1; }
+  .footer-grid { grid-template-columns: 1fr; text-align: center; }
+  .footer-brand p { margin-inline: auto; }
+  .footer-social { justify-content: center; }
+}
+
+@media (max-width: 720px) {
+  .main-nav {
+    position: absolute; top: 78px; inset-inline: 0;
+    background: var(--card);
+    flex-direction: column; padding: 20px 24px; gap: 18px;
+    box-shadow: var(--shadow-md);
+    display: none;
+  }
+  .main-nav.open { display: flex; }
+  .nav-toggle { display: block; }
+  .header-cta { display: none; }
+  .hero-text h1 { font-size: 2.1rem; }
+  .hero::before { height: 320px; }
+}
+</style>
+</head>
+<body>
+
+
+<div class="bs-root" lang="ar" dir="rtl">
+
+<header class="site-header" id="siteHeader">
+  <div class="bs-container header-inner">
+    <a href="#top" class="logo">
+      <span class="logo-mark">✨</span>
+      <span class="logo-text">Beauty Station <span class="logo-eg">EG</span></span>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="#top" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+      <a href="#products" data-ar="المنتجات" data-en="Products">المنتجات</a>
+      <a href="#about" data-ar="نبذة عننا" data-en="About">نبذة عننا</a>
+      <a href="#reviews" data-ar="آراء العملاء" data-en="Reviews">آراء العملاء</a>
+      <a href="#contact" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a>
+    </nav>
+
+    <div class="header-actions">
+      <button id="langToggle" class="lang-btn">EN</button>
+      <a id="headerWhatsapp" href="#" target="_blank" rel="noopener" class="header-cta" data-ar="اطلبي الآن" data-en="Order Now">اطلبي الآن</a>
+      <button id="navToggle" class="nav-toggle" aria-label="menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="bs-container hero-inner">
+    <div class="hero-text reveal">
+      <span class="eyebrow"><span>✦</span><span data-ar="بإشراف صيدلانية متخصصة" data-en="Curated by a licensed pharmacist">بإشراف صيدلانية متخصصة</span></span>
+      <h1 class="display" data-ar="جمالك يستاهل &lt;span class=&quot;accent&quot;&gt;الأصلي&lt;/span&gt;" data-en="Your beauty deserves &lt;span class=&quot;accent&quot;&gt;the real thing&lt;/span&gt;">جمالك يستاهل <span class="accent">الأصلي</span></h1>
+      <p data-ar="مستحضرات تجميل وعناية بالبشرة أصلية 100%، مختارة بعناية من صيدلانية وخبيرة تجميل عشان توصلك بأمان وثقة." data-en="100% original cosmetics & skincare, hand-picked by a pharmacist & certified beauty specialist for your safety and peace of mind.">مستحضرات تجميل وعناية بالبشرة أصلية 100%، مختارة بعناية من صيدلانية وخبيرة تجميل عشان توصلك بأمان وثقة.</p>
+      <div class="hero-actions">
+        <a href="#products" class="btn btn-primary" data-ar="تسوقي دلوقتي" data-en="Shop Now">تسوقي دلوقتي</a>
+        <a id="heroWhatsapp" href="#" target="_blank" rel="noopener" class="btn btn-whatsapp">
+          <span>🟢</span>
+          <span data-ar="اطلبي عبر واتساب" data-en="Order via WhatsApp">اطلبي عبر واتساب</span>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong>+500</strong><span data-ar="عميلة راضية" data-en="Happy clients">عميلة راضية</span></div>
+        <div class="hero-stat"><strong>100%</strong><span data-ar="منتجات أصلية" data-en="Original products">منتجات أصلية</span></div>
+        <div class="hero-stat"><strong>4.9★</strong><span data-ar="تقييم العملاء" data-en="Client rating">تقييم العملاء</span></div>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="bottle-mock">
+        <div class="bottle-cap"></div>
+        <div class="bottle-body">
+          <div class="bottle-label">
+            <span class="lb-icon">💧</span>
+            <span class="lb-name">BEAUTY STATION</span>
+          </div>
+        </div>
+        <div class="float-badge b1"><span>🎓</span><span data-ar="صيدلانية" data-en="Pharmacist">صيدلانية</span></div>
+        <div class="float-badge b2"><span>✅</span><span data-ar="أصلي %100" data-en="100% Original">أصلي %100</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust-strip">
+  <div class="bs-container trust-grid">
+    <div class="trust-chip reveal">
+      <span class="ic">🎓</span>
+      <p><span data-ar="صيدلانية ودبلومة تجميل" data-en="Pharmacist & Cosmetics Diploma">صيدلانية ودبلومة تجميل</span><small data-ar="خبرة علمية موثوقة" data-en="Trusted scientific background">خبرة علمية موثوقة</small></p>
+    </div>
+    <div class="trust-chip reveal">
+      <span class="ic">✅</span>
+      <p><span data-ar="منتجات أصلية 100%" data-en="100% Original Products">منتجات أصلية 100%</span><small data-ar="من مصادر موثوقة" data-en="From trusted sources">من مصادر موثوقة</small></p>
+    </div>
+    <div class="trust-chip reveal">
+      <span class="ic">🚚</span>
+      <p><span data-ar="توصيل لكل المحافظات" data-en="Delivery Nationwide">توصيل لكل المحافظات</span><small data-ar="خلال 2-4 أيام" data-en="Within 2–4 days">خلال 2-4 أيام</small></p>
+    </div>
+    <div class="trust-chip reveal">
+      <span class="ic">💬</span>
+      <p><span data-ar="استشارة مجانية" data-en="Free Consultation">استشارة مجانية</span><small data-ar="قبل ما تطلبي" data-en="Before you order">قبل ما تطلبي</small></p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="bs-container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span>⭐</span><span data-ar="الأكثر طلبًا" data-en="Customer favorites">الأكثر طلبًا</span></span>
+      <h2 data-ar="الأكثر مبيعًا هذا الشهر" data-en="Bestsellers this month">الأكثر مبيعًا هذا الشهر</h2>
+      <p data-ar="اللي بنات كتير بيطلبوها ويرجعوا يطلبوها تاني" data-en="What our clients keep coming back for">اللي بنات كتير بيطلبوها ويرجعوا يطلبوها تاني</p>
+    </div>
+    <div class="best-grid" id="bestGrid"></div>
+  </div>
+</section>
+
+<section class="section" id="products">
+  <div class="bs-container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span>🛍️</span><span data-ar="تسوقي" data-en="Shop">تسوقي</span></span>
+      <h2 data-ar="كل المنتجات" data-en="All Products">كل المنتجات</h2>
+      <p data-ar="اختاري القسم اللي يهمك وابعتيلنا طلبك على واتساب في ثانية" data-en="Pick a category and send your order on WhatsApp in seconds">اختاري القسم اللي يهمك وابعتيلنا طلبك على واتساب في ثانية</p>
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="filter-btn active" data-filter="all" data-ar="الكل" data-en="All">الكل</button>
+      <button class="filter-btn" data-filter="skincare" data-ar="العناية بالبشرة" data-en="Skincare">العناية بالبشرة</button>
+      <button class="filter-btn" data-filter="makeup" data-ar="مكياج" data-en="Makeup">مكياج</button>
+      <button class="filter-btn" data-filter="haircare" data-ar="العناية بالشعر" data-en="Haircare">العناية بالشعر</button>
+    </div>
+
+    <div class="products-grid" id="productsGrid"></div>
+  </div>
+</section>
+
+<section class="section section-alt" id="about">
+  <div class="bs-container about-inner">
+    <div class="about-visual reveal">
+      <div class="about-card">
+        <div class="about-avatar">👩‍⚕️</div>
+        <h4 data-ar="مؤسسة Beauty Station" data-en="Founder, Beauty Station">مؤسسة Beauty Station</h4>
+        <span data-ar="صيدلانية وخبيرة تجميل" data-en="Pharmacist & Beauty Specialist">صيدلانية وخبيرة تجميل</span>
+        <div class="about-badges">
+          <span data-ar="🎓 دبلومة تجميل" data-en="🎓 Cosmetics Diploma">🎓 دبلومة تجميل</span>
+          <span data-ar="💊 صيدلانية مرخصة" data-en="💊 Licensed Pharmacist">💊 صيدلانية مرخصة</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <span class="eyebrow"><span>👋</span><span data-ar="ليه Beauty Station" data-en="Why Beauty Station">ليه Beauty Station</span></span>
+      <h2 data-ar="خبرة علمية.. مش بس تريند" data-en="Real expertise, not just trends">خبرة علمية.. مش بس تريند</h2>
+      <p data-ar="أنا صيدلانية وحاصلة على دبلومة في مستحضرات التجميل، وده خلاني أفهم بشرتك كويس قبل ما أرشحلك أي منتج. هدفي إني أوصلك منتجات أصلية وآمنة، مع نصيحة صح تناسب نوع بشرتك وشعرك." data-en="I'm a licensed pharmacist with a cosmetics diploma — every recommendation is backed by real knowledge of your skin, not just trends. My goal is to get you safe, original products with honest advice tailored to your skin & hair type.">أنا صيدلانية وحاصلة على دبلومة في مستحضرات التجميل، وده خلاني أفهم بشرتك كويس قبل ما أرشحلك أي منتج. هدفي إني أوصلك منتجات أصلية وآمنة، مع نصيحة صح تناسب نوع بشرتك وشعرك.</p>
+      <ul class="about-list">
+        <li><span class="tick">✓</span><span data-ar="استشارة مجانية لاختيار المنتج المناسب لبشرتك" data-en="Free consultation to pick the right product for your skin">استشارة مجانية لاختيار المنتج المناسب لبشرتك</span></li>
+        <li><span class="tick">✓</span><span data-ar="منتجات مضمونة 100% ومن مصادر موثوقة" data-en="100% guaranteed products from trusted sources">منتجات مضمونة 100% ومن مصادر موثوقة</span></li>
+        <li><span class="tick">✓</span><span data-ar="متابعة بعد الشراء لو حابة تعرفي النتيجة" data-en="Follow-up after purchase to check on your results">متابعة بعد الشراء لو حابة تعرفي النتيجة</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="reviews">
+  <div class="bs-container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span>💬</span><span data-ar="آراء عميلاتنا" data-en="Client reviews">آراء عميلاتنا</span></span>
+      <h2 data-ar="كلامهم أحلى من كلامنا" data-en="Don't just take our word for it">كلامهم أحلى من كلامنا</h2>
+    </div>
+    <div class="tst-grid" id="tstGrid"></div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="bs-container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span>❓</span><span data-ar="أسئلة شائعة" data-en="FAQ">أسئلة شائعة</span></span>
+      <h2 data-ar="عندك سؤال؟ إجابته هنا" data-en="Got questions? We've got answers">عندك سؤال؟ إجابته هنا</h2>
+    </div>
+    <div class="faq-list" id="faqList"></div>
+  </div>
+</section>
+
+<footer class="site-footer" id="contact">
+  <div class="bs-container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo-text">Beauty Station <span class="logo-eg">EG</span></span>
+        <p data-ar="جمالك أمانة عندنا. مستحضرات أصلية باختيار صيدلانية متخصصة، وتوصيل لباب البيت في كل المحافظات." data-en="Your beauty is our responsibility. Original products, hand-picked by a pharmacist, delivered to your door nationwide.">جمالك أمانة عندنا. مستحضرات أصلية باختيار صيدلانية متخصصة، وتوصيل لباب البيت في كل المحافظات.</p>
+        <div class="footer-social">
+          <a id="footerWhatsapp" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">🟢</a>
+          <a href="#" target="_blank" rel="noopener" aria-label="Instagram">📷</a>
+          <a href="#" target="_blank" rel="noopener" aria-label="Facebook">📘</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5 data-ar="روابط سريعة" data-en="Quick Links">روابط سريعة</h5>
+        <ul>
+          <li><a href="#products" data-ar="المنتجات" data-en="Products">المنتجات</a></li>
+          <li><a href="#about" data-ar="نبذة عننا" data-en="About">نبذة عننا</a></li>
+          <li><a href="#reviews" data-ar="آراء العملاء" data-en="Reviews">آراء العملاء</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5 data-ar="تواصلي معنا" data-en="Get in Touch">تواصلي معنا</h5>
+        <ul>
+          <li data-ar="واتساب: 01014400922" data-en="WhatsApp: 01014400922">واتساب: 01014400922</li>
+          <li data-ar="السبت–الخميس، 10ص – 10م" data-en="Sat–Thu, 10am – 10pm">السبت–الخميس، 10ص – 10م</li>
+          <li data-ar="الدفع عند الاستلام متاح" data-en="Cash on delivery available">الدفع عند الاستلام متاح</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-ar="© 2026 Beauty Station EG. جميع الحقوق محفوظة." data-en="© 2026 Beauty Station EG. All rights reserved.">© 2026 Beauty Station EG. جميع الحقوق محفوظة.</p>
+      <p data-ar="صُنع بحب للجمال الآمن 💗" data-en="Made with love for safe beauty 💗">صُنع بحب للجمال الآمن 💗</p>
+    </div>
+  </div>
+</footer>
+
+<a id="floatWhatsapp" href="#" target="_blank" rel="noopener" class="float-whatsapp" aria-label="WhatsApp">
+  <span>🟢</span>
+</a>
+
+</div>
+
+<script>
+const WHATSAPP_NUMBER = "201014400922";
+let currentLang = "ar";
+
+const products = [
+  { id: 1, category: "skincare", icon: "🧴", nameAr: "سيروم فيتامين سي", nameEn: "Vitamin C Serum", price: 450, best: true, rating: 5 },
+  { id: 2, category: "skincare", icon: "🫧", nameAr: "غسول بشرة مرطب", nameEn: "Hydrating Face Cleanser", price: 320, best: false },
+  { id: 3, category: "skincare", icon: "🧖‍♀️", nameAr: "كريم مرطب يومي", nameEn: "Daily Moisturizer", price: 380, best: false },
+  { id: 4, category: "makeup", icon: "💄", nameAr: "أحمر شفايف مطفي", nameEn: "Matte Lipstick", price: 260, best: true, rating: 5 },
+  { id: 5, category: "makeup", icon: "✨", nameAr: "كريم أساس تغطية كاملة", nameEn: "Full Coverage Foundation", price: 520, best: true, rating: 4 },
+  { id: 6, category: "makeup", icon: "👁️", nameAr: "باليت ظلال عيون", nameEn: "Eyeshadow Palette", price: 610, best: false },
+  { id: 7, category: "haircare", icon: "🧴", nameAr: "شامبو بدون سلفات", nameEn: "Sulfate-Free Shampoo", price: 290, best: false },
+  { id: 8, category: "haircare", icon: "💆‍♀️", nameAr: "ماسك شعر مغذي", nameEn: "Nourishing Hair Mask", price: 340, best: false },
+  { id: 9, category: "haircare", icon: "🌿", nameAr: "زيت أرجان للشعر", nameEn: "Argan Hair Oil", price: 270, best: false },
+];
+
+const testimonials = [
+  { initials: "س.م", nameAr: "سارة محمد", nameEn: "Sara Mohamed", roleAr: "عميلة دائمة", roleEn: "Regular client",
+    quoteAr: "أول مرة أثق في متجر أونلاين للمكياج بسبب إن صاحبته صيدلانية وفاهمة في اللي بتقوله. السيروم فيتامين سي غيرلي بشرتي فعلاً.",
+    quoteEn: "First time I fully trust an online cosmetics store — the founder is a pharmacist who actually knows what she's talking about. The Vitamin C serum genuinely changed my skin." },
+  { initials: "ن.ع", nameAr: "نور عبدالله", nameEn: "Nour Abdallah", roleAr: "عميلة جديدة", roleEn: "New client",
+    quoteAr: "استشارتني قبل ما أطلب وقالتلي المنتج المناسب لبشرتي الحساسة. حسيت إني مش بس بشتري، أنا بستفيد.",
+    quoteEn: "She consulted me before I even ordered and picked what suits my sensitive skin. I didn't just buy a product, I actually learned something." },
+  { initials: "م.ح", nameAr: "مريم حسن", nameEn: "Mariam Hassan", roleAr: "عميلة دائمة", roleEn: "Regular client",
+    quoteAr: "التوصيل وصل بسرعة والمنتج أصلي 100%. بطلب من عندها بقالي شهور ومحصلش أي مشكلة.",
+    quoteEn: "Delivery was fast and the product was 100% original. I've been ordering for months without a single issue." },
+];
+
+const faqs = [
+  { qAr: "إزاي أطمن إن المنتجات أصلية؟", qEn: "How can I be sure the products are original?",
+    aAr: "كل المنتجات بتتشترى من موزعين معتمدين، وبما إني صيدلانية براجع كل منتج قبل ما يتعرض. ممكن تشوفي الكود والباركود قبل الاستلام.",
+    aEn: "Every product is sourced from authorized distributors, and as a pharmacist I personally check each item before it's listed. You can verify the batch code and barcode before accepting delivery." },
+  { qAr: "إزاي أطلب؟", qEn: "How do I place an order?",
+    aAr: "دوسي على زر واتساب جنب أي منتج، هيتفتح شات جاهز باسم المنتج، وكمّلي معايا التفاصيل وطريقة الدفع.",
+    aEn: "Tap the WhatsApp button next to any product — it opens a chat pre-filled with the product name, then we sort out the details and payment with you directly." },
+  { qAr: "فيه توصيل لكل المحافظات؟", qEn: "Do you deliver nationwide?",
+    aAr: "أيوه، بنوصل لكل محافظات مصر خلال 2-4 أيام عمل، والدفع عند الاستلام متاح في أغلب المناطق.",
+    aEn: "Yes, we deliver to all governorates within 2–4 business days, and cash on delivery is available in most areas." },
+];
+
+function buildWhatsappLink(nameAr, nameEn) {
+  const msg = currentLang === "ar" ? `أهلاً، حابة أطلب: ${nameAr}` : `Hi, I'd like to order: ${nameEn}`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+}
+
+function thumbColor(category) {
+  const c = {
+    skincare: "linear-gradient(135deg,#f8dbe7,#f3c3d8)",
+    makeup: "linear-gradient(135deg,#ece2fb,#d9c4f7)",
+    haircare: "linear-gradient(135deg,#f1e2c4,#e8d09a)",
+  };
+  return c[category] || "linear-gradient(135deg,#f8dbe7,#ece2fb)";
+}
+
+function categoryLabel(category) {
+  const l = {
+    skincare: currentLang === "ar" ? "العناية بالبشرة" : "Skincare",
+    makeup: currentLang === "ar" ? "مكياج" : "Makeup",
+    haircare: currentLang === "ar" ? "العناية بالشعر" : "Haircare",
+  };
+  return l[category] || "";
+}
+
+function renderProducts(filter = "all") {
+  const grid = document.getElementById("productsGrid");
+  grid.innerHTML = "";
+  const list = filter === "all" ? products : products.filter(p => p.category === filter);
+  list.forEach(p => {
+    const card = document.createElement("div");
+    card.className = "product-card";
+    card.innerHTML = `
+      <div class="product-thumb" style="background:${thumbColor(p.category)}">${p.icon}</div>
+      <div class="product-body">
+        <span class="product-cat">${categoryLabel(p.category)}</span>
+        <span class="product-name">${currentLang === "ar" ? p.nameAr : p.nameEn}</span>
+        <span class="product-price">${p.price} ${currentLang === "ar" ? "ج.م" : "EGP"}</span>
+        <a class="product-order" target="_blank" rel="noopener" href="${buildWhatsappLink(p.nameAr, p.nameEn)}">
+          <span>🟢</span><span>${currentLang === "ar" ? "اطلبي عبر واتساب" : "Order via WhatsApp"}</span>
+        </a>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+function renderBestsellers() {
+  const grid = document.getElementById("bestGrid");
+  grid.innerHTML = "";
+  products.filter(p => p.best).forEach(p => {
+    const card = document.createElement("div");
+    card.className = "best-card";
+    card.innerHTML = `
+      <span class="best-ribbon" data-ar="الأكثر مبيعًا" data-en="Bestseller">${currentLang === "ar" ? "الأكثر مبيعًا" : "Bestseller"}</span>
+      <div class="best-icon">${p.icon}</div>
+      <h3>${currentLang === "ar" ? p.nameAr : p.nameEn}</h3>
+      <div class="stars">${"★".repeat(p.rating)}${"☆".repeat(5 - p.rating)}</div>
+      <div class="price">${p.price} ${currentLang === "ar" ? "ج.م" : "EGP"}</div>`;
+    grid.appendChild(card);
+  });
+}
+
+function renderTestimonials() {
+  const grid = document.getElementById("tstGrid");
+  grid.innerHTML = "";
+  testimonials.forEach(t => {
+    const card = document.createElement("div");
+    card.className = "tst-card";
+    card.innerHTML = `
+      <div class="tst-stars">★★★★★</div>
+      <p class="tst-quote">"${currentLang === "ar" ? t.quoteAr : t.quoteEn}"</p>
+      <div class="tst-person">
+        <span class="tst-avatar">${t.initials}</span>
+        <span><strong>${currentLang === "ar" ? t.nameAr : t.nameEn}</strong><small>${currentLang === "ar" ? t.roleAr : t.roleEn}</small></span>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+function renderFaqs() {
+  const list = document.getElementById("faqList");
+  list.innerHTML = "";
+  faqs.forEach((f, i) => {
+    const item = document.createElement("div");
+    item.className = "faq-item" + (i === 0 ? " open" : "");
+    item.innerHTML = `
+      <button class="faq-q"><span>${currentLang === "ar" ? f.qAr : f.qEn}</span><span class="plus">+</span></button>
+      <div class="faq-a">${currentLang === "ar" ? f.aAr : f.aEn}</div>`;
+    item.querySelector(".faq-q").addEventListener("click", () => item.classList.toggle("open"));
+    list.appendChild(item);
+  });
+}
+
+function updateStaticWhatsappLinks() {
+  const msg = currentLang === "ar" ? "أهلاً، حابة أعرف أكتر عن منتجاتكم" : "Hi, I'd like to know more about your products";
+  const link = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  ["heroWhatsapp", "footerWhatsapp", "floatWhatsapp", "headerWhatsapp"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.href = link;
+  });
+}
+
+function applyLanguage(lang) {
+  currentLang = lang;
+  const root = document.querySelector(".bs-root");
+  root.lang = lang;
+  root.dir = lang === "ar" ? "rtl" : "ltr";
+
+  root.querySelectorAll("[data-ar]").forEach(el => {
+    if (el.querySelector("[data-ar]")) return;
+    const val = lang === "ar" ? el.dataset.ar : el.dataset.en;
+    if (val.includes("<span")) { el.innerHTML = val; } else { el.textContent = val; }
+  });
+
+  document.getElementById("langToggle").textContent = lang === "ar" ? "EN" : "AR";
+
+  const activeFilter = document.querySelector(".filter-btn.active")?.dataset.filter || "all";
+  renderProducts(activeFilter);
+  renderBestsellers();
+  renderTestimonials();
+  renderFaqs();
+  updateStaticWhatsappLinks();
+}
+
+document.getElementById("langToggle").addEventListener("click", () => {
+  applyLanguage(currentLang === "ar" ? "en" : "ar");
+});
+
+document.getElementById("navToggle").addEventListener("click", () => {
+  document.getElementById("mainNav").classList.toggle("open");
+});
+
+document.getElementById("filters").addEventListener("click", (e) => {
+  const btn = e.target.closest(".filter-btn");
+  if (!btn) return;
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderProducts(btn.dataset.filter);
+});
+
+window.addEventListener("scroll", () => {
+  document.getElementById("siteHeader").classList.toggle("scrolled", window.scrollY > 12);
+}, { passive: true });
+
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("in"); });
+}, { threshold: 0.15 });
+
+function observeReveals() {
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+}
+
+renderProducts();
+renderBestsellers();
+renderTestimonials();
+renderFaqs();
+updateStaticWhatsappLinks();
+observeReveals();
+</script>
+
+</body>
+</html>
