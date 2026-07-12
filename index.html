@@ -594,34 +594,12 @@
   font-size: 1.6rem;
 }
 
-.welcome-modal h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; text-wrap: balance; }
-.welcome-modal > p { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 22px; }
-
-.welcome-offer {
-  background: var(--gold-soft);
-  border: 1px dashed rgba(205,164,73,0.4);
-  border-radius: var(--radius-m);
-  padding: 16px;
-  margin-bottom: 22px;
+.welcome-love {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--gold-bright);
+  text-wrap: balance;
 }
-.welcome-offer > span { display: block; font-weight: 700; color: var(--gold-bright); margin-bottom: 10px; font-size: 0.95rem; }
-.welcome-code { display: flex; align-items: center; justify-content: center; gap: 10px; }
-.welcome-code span {
-  font-weight: 800; letter-spacing: 0.08em;
-  background: rgba(0,0,0,0.3);
-  border: 1px solid rgba(205,164,73,0.3);
-  padding: 8px 16px; border-radius: 8px;
-  color: var(--ink);
-}
-.welcome-code button {
-  background: var(--gradient); color: #16130a;
-  font-weight: 700; font-size: 0.82rem;
-  padding: 8px 14px; border-radius: 8px;
-  transition: filter 0.2s;
-}
-.welcome-code button:hover { filter: brightness(1.1); }
-
-.welcome-cta { width: 100%; justify-content: center; }
 
 @media (prefers-reduced-motion: reduce) {
   .welcome-overlay, .welcome-modal { transition: none; }
@@ -636,17 +614,8 @@
 <div class="welcome-overlay" id="welcomeOverlay">
   <div class="welcome-modal">
     <button class="welcome-close" id="welcomeClose" aria-label="Close">✕</button>
-    <div class="welcome-mark">✨</div>
-    <h3 data-ar="أهلاً بيكي في Beauty Station" data-en="Welcome to Beauty Station">أهلاً بيكي في Beauty Station</h3>
-    <p data-ar="مستحضرات تجميل وعناية بالبشرة أصلية 100%، بإشراف صيدلانية متخصصة." data-en="100% original cosmetics & skincare, curated by a licensed pharmacist.">مستحضرات تجميل وعناية بالبشرة أصلية 100%، بإشراف صيدلانية متخصصة.</p>
-    <div class="welcome-offer">
-      <span data-ar="خصم 10% على أول طلبية" data-en="10% off your first order">خصم 10% على أول طلبية</span>
-      <div class="welcome-code">
-        <span>WELCOME10</span>
-        <button id="copyCodeBtn" data-ar="نسخ" data-en="Copy">نسخ</button>
-      </div>
-    </div>
-    <button class="btn btn-primary welcome-cta" id="welcomeCta" data-ar="ابدأي التسوق" data-en="Start Shopping">ابدأي التسوق</button>
+    <div class="welcome-mark">💗</div>
+    <p class="welcome-love">أنا بحبك يا أماني</p>
   </div>
 </div>
 
@@ -1090,33 +1059,6 @@ document.getElementById("welcomeOverlay").addEventListener("click", (e) => {
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeWelcomeModal();
 });
-document.getElementById("welcomeCta").addEventListener("click", () => {
-  closeWelcomeModal();
-  document.getElementById("products").scrollIntoView({ behavior: "smooth" });
-});
-function copyPromoCode() {
-  const btn = document.getElementById("copyCodeBtn");
-  const mark = () => {
-    btn.textContent = currentLang === "ar" ? "اتنسخ!" : "Copied!";
-    setTimeout(() => { btn.textContent = currentLang === "ar" ? "نسخ" : "Copy"; }, 1500);
-  };
-  const fallbackCopy = () => {
-    const temp = document.createElement("textarea");
-    temp.value = "WELCOME10";
-    temp.style.position = "fixed";
-    temp.style.opacity = "0";
-    document.body.appendChild(temp);
-    temp.select();
-    try { document.execCommand("copy"); mark(); } catch (err) { /* clipboard unavailable */ }
-    document.body.removeChild(temp);
-  };
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText("WELCOME10").then(mark).catch(fallbackCopy);
-  } else {
-    fallbackCopy();
-  }
-}
-document.getElementById("copyCodeBtn").addEventListener("click", copyPromoCode);
 
 setTimeout(openWelcomeModal, 500);
 </script>
