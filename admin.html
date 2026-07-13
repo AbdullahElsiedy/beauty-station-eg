@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>إدارة Beauty Station</title>
+<style>
+:root {
+  --bg: #fdf3f5;
+  --card: #ffffff;
+  --ink: #4a2436;
+  --ink-soft: #8a6472;
+  --gold: #b76e79;
+  --gold-bright: #cf8b91;
+  --gold-deep: #8f4a56;
+  --gold-soft: rgba(183, 110, 121, 0.14);
+  --gradient: linear-gradient(135deg, var(--gold-bright), var(--gold-deep));
+  --line: rgba(74, 36, 54, 0.12);
+  --shadow: 0 10px 30px rgba(148, 74, 94, 0.14);
+  --radius: 16px;
+  --good: #1f9c4f;
+  --bad: #c0392b;
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); line-height: 1.6; }
+.wrap { max-width: 720px; margin: 0 auto; padding: 30px 20px 80px; }
+h1 { font-size: 1.4rem; margin: 0 0 6px; }
+h2 { font-size: 1.05rem; margin: 0 0 14px; color: var(--gold-deep); }
+p.sub { color: var(--ink-soft); font-size: 0.9rem; margin: 0 0 24px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); margin-bottom: 22px; }
+label { display: block; font-size: 0.85rem; font-weight: 700; margin: 12px 0 6px; }
+input[type="text"], input[type="number"], input[type="password"], select {
+  width: 100%; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 10px;
+  font-size: 0.95rem; background: #fff; color: var(--ink); font-family: inherit;
+}
+input[type="file"] { margin-top: 4px; }
+.row { display: flex; gap: 12px; }
+.row > * { flex: 1; }
+.checkbox-row { display: flex; align-items: center; gap: 8px; margin-top: 14px; }
+.checkbox-row input { width: auto; }
+.checkbox-row label { margin: 0; font-weight: 600; }
+button {
+  cursor: pointer; border: none; border-radius: 999px; font-weight: 700; font-size: 0.92rem;
+  padding: 12px 22px; font-family: inherit;
+}
+.btn-primary { background: var(--gradient); color: #fff6f4; width: 100%; margin-top: 18px; }
+.btn-primary:disabled { opacity: 0.6; cursor: default; }
+.btn-secondary { background: var(--gold-soft); color: var(--gold-deep); }
+.btn-danger { background: rgba(192,57,43,0.1); color: var(--bad); }
+.status { margin-top: 14px; font-size: 0.88rem; font-weight: 700; min-height: 1.2em; }
+.status.ok { color: var(--good); }
+.status.err { color: var(--bad); }
+
+.token-row { display: flex; gap: 10px; align-items: center; }
+.token-row input { flex: 1; }
+.token-status { font-size: 0.8rem; font-weight: 700; margin-top: 8px; }
+.token-status.connected { color: var(--good); }
+.token-status.disconnected { color: var(--bad); }
+details.help { margin-top: 10px; font-size: 0.82rem; color: var(--ink-soft); }
+details.help summary { cursor: pointer; font-weight: 700; color: var(--gold-deep); }
+details.help ol { padding-inline-start: 20px; margin: 8px 0 0; }
+details.help li { margin-bottom: 4px; }
+
+.product-list { display: flex; flex-direction: column; gap: 10px; }
+.p-item { display: flex; align-items: center; gap: 12px; padding: 10px; border: 1px solid var(--line); border-radius: 12px; }
+.p-item img { width: 52px; height: 52px; border-radius: 10px; object-fit: cover; flex-shrink: 0; background: var(--gold-soft); }
+.p-item .info { flex: 1; min-width: 0; }
+.p-item .name { font-weight: 700; font-size: 0.92rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.p-item .meta { font-size: 0.78rem; color: var(--ink-soft); }
+.p-item .actions { display: flex; gap: 6px; }
+.p-item .actions button { padding: 8px 12px; font-size: 0.78rem; }
+
+.cat-row { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.cat-row:last-child { border-bottom: none; }
+.cat-row img { width: 60px; height: 60px; border-radius: 10px; object-fit: cover; background: var(--gold-soft); }
+.cat-row .cat-name { font-weight: 700; flex-shrink: 0; width: 90px; }
+.cat-row .cat-controls { flex: 1; display: flex; gap: 8px; align-items: center; }
+.cat-row input[type="file"] { flex: 1; font-size: 0.8rem; }
+
+/* Password gate */
+#gate {
+  position: fixed; inset: 0; background: var(--bg); z-index: 999;
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+}
+#gate .box { background: var(--card); border-radius: var(--radius); padding: 30px; width: 100%; max-width: 340px; box-shadow: var(--shadow); text-align: center; }
+#gate .box .mark { width: 50px; height: 50px; margin: 0 auto 14px; border-radius: 50%; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+#gate input { text-align: center; margin-top: 14px; }
+#gate button { width: 100%; margin-top: 14px; }
+#gate .err { color: var(--bad); font-size: 0.85rem; margin-top: 10px; min-height: 1.2em; }
+
+#adminContent { display: none; }
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="box">
+    <div class="mark">✨</div>
+    <h1>لوحة إدارة المنتجات</h1>
+    <p class="sub">كلمة السر عشان تدخلي</p>
+    <input type="password" id="gatePassword" placeholder="كلمة السر" autocomplete="off">
+    <button class="btn-primary" id="gateSubmit">دخول</button>
+    <div class="err" id="gateError"></div>
+  </div>
+</div>
+
+<div id="adminContent">
+  <div class="wrap">
+    <h1>لوحة إدارة المنتجات — Beauty Station EG</h1>
+    <p class="sub">من هنا تضيفي أو تعدلي صور ومعلومات المنتجات، والتعديل هيظهر على الموقع خلال دقيقة تقريبًا.</p>
+
+    <div class="card">
+      <h2>1. الاتصال بـ GitHub</h2>
+      <div class="token-row">
+        <input type="password" id="ghToken" placeholder="الصقي الـ Personal Access Token هنا">
+        <button class="btn-secondary" id="saveToken">حفظ</button>
+      </div>
+      <div class="token-status" id="tokenStatus">غير متصلة</div>
+      <details class="help">
+        <summary>إزاي أجيب التوكن ده؟ (مرة واحدة بس)</summary>
+        <ol>
+          <li>افتحي: <span style="font-weight:700">github.com/settings/tokens?type=beta</span></li>
+          <li>دوسي "Generate new token"</li>
+          <li>في Repository access اختاري "Only select repositories" وحددي <b>beauty-station-eg</b></li>
+          <li>في Permissions افتحي "Contents" واختاري "Read and write"</li>
+          <li>دوسي Generate وانسخي التوكن وحطيه هنا فوق</li>
+        </ol>
+      </details>
+    </div>
+
+    <div class="card">
+      <h2 id="formTitle">2. إضافة منتج جديد</h2>
+      <form id="productForm">
+        <label>القسم</label>
+        <select name="category" required>
+          <option value="skincare">العناية بالبشرة</option>
+          <option value="makeup">مكياج</option>
+          <option value="haircare">العناية بالشعر</option>
+        </select>
+
+        <div class="row">
+          <div>
+            <label>اسم المنتج (عربي)</label>
+            <input type="text" name="nameAr" required>
+          </div>
+          <div>
+            <label>اسم المنتج (إنجليزي)</label>
+            <input type="text" name="nameEn" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>السعر (ج.م)</label>
+            <input type="number" name="price" min="0" required>
+          </div>
+          <div>
+            <label>التقييم (من 5)</label>
+            <input type="number" name="rating" min="1" max="5" value="5">
+          </div>
+        </div>
+
+        <label>صورة المنتج <span id="imgRequiredNote">(مطلوبة)</span></label>
+        <input type="file" name="image" accept="image/*" id="imageInput">
+
+        <div class="checkbox-row">
+          <input type="checkbox" name="best" id="bestCheck">
+          <label for="bestCheck">من الأكثر مبيعًا؟</label>
+        </div>
+
+        <button type="submit" class="btn-primary" id="submitBtn">حفظ المنتج</button>
+        <button type="button" class="btn-secondary" id="cancelEdit" style="width:100%;margin-top:8px;display:none;">إلغاء التعديل</button>
+        <div class="status" id="formStatus"></div>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>3. المنتجات الحالية</h2>
+      <div class="product-list" id="productList"></div>
+    </div>
+
+    <div class="card">
+      <h2>4. صور الأقسام (الصفحة الرئيسية)</h2>
+      <div id="categoryImages"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const OWNER = "AbdullahElsiedy";
+const REPO = "beauty-station-eg";
+const BRANCH = "master";
+const PRODUCTS_PATH = "products.json";
+const ADMIN_PASSWORD = "amany";
+
+function getToken() { return localStorage.getItem("bs_gh_pat") || ""; }
+function setToken(t) { localStorage.setItem("bs_gh_pat", t); }
+
+function ghHeaders(extra = {}) {
+  return { "Authorization": `Bearer ${getToken()}`, "Accept": "application/vnd.github+json", ...extra };
+}
+
+function utf8ToBase64(str) {
+  const bytes = new TextEncoder().encode(str);
+  let binary = "";
+  bytes.forEach(b => binary += String.fromCharCode(b));
+  return btoa(binary);
+}
+function base64ToUtf8(b64) {
+  const binary = atob(b64.replace(/\n/g, ""));
+  const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+async function ghGetFile(path) {
+  const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}&t=${Date.now()}`, { headers: ghHeaders() });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error((await res.json()).message || "GitHub error");
+  return res.json();
+}
+
+async function ghPutFile(path, contentBase64, message, sha) {
+  const body = { message, content: contentBase64, branch: BRANCH };
+  if (sha) body.sha = sha;
+  const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`, {
+    method: "PUT",
+    headers: ghHeaders({ "Content-Type": "application/json" }),
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error((await res.json()).message || "GitHub error");
+  return res.json();
+}
+
+function resizeImageFile(file, maxDim = 1200, quality = 0.82) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      let { width, height } = img;
+      if (width > maxDim || height > maxDim) {
+        if (width > height) { height = Math.round(height * maxDim / width); width = maxDim; }
+        else { width = Math.round(width * maxDim / height); height = maxDim; }
+      }
+      const canvas = document.createElement("canvas");
+      canvas.width = width; canvas.height = height;
+      canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+      canvas.toBlob(blob => {
+        URL.revokeObjectURL(url);
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(",")[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      }, "image/jpeg", quality);
+    };
+    img.onerror = reject;
+    img.src = url;
+  });
+}
+
+function slugify(str) {
+  return (str || "item").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || "item";
+}
+
+let currentProducts = [];
+let currentCategories = [];
+let productsSha = null;
+let editingId = null;
+
+const catLabels = { skincare: "العناية بالبشرة", makeup: "مكياج", haircare: "العناية بالشعر" };
+
+function setStatus(el, msg, kind) {
+  el.textContent = msg;
+  el.className = "status" + (kind ? " " + kind : "");
+}
+
+function setTokenStatus() {
+  const el = document.getElementById("tokenStatus");
+  if (getToken()) { el.textContent = "متصلة ✅"; el.className = "token-status connected"; }
+  else { el.textContent = "غير متصلة — محتاجة تحطي التوكن"; el.className = "token-status disconnected"; }
+}
+
+document.getElementById("saveToken").addEventListener("click", () => {
+  const val = document.getElementById("ghToken").value.trim();
+  if (!val) return;
+  setToken(val);
+  document.getElementById("ghToken").value = "";
+  setTokenStatus();
+  loadCatalog();
+});
+
+async function loadCatalog() {
+  if (!getToken()) return;
+  try {
+    const file = await ghGetFile(PRODUCTS_PATH);
+    const json = JSON.parse(base64ToUtf8(file.content));
+    currentProducts = json.products || [];
+    currentCategories = json.categories || [];
+    productsSha = file.sha;
+    renderProductList();
+    renderCategoryImages();
+  } catch (err) {
+    alert("مشكلة في تحميل بيانات المنتجات: " + err.message);
+  }
+}
+
+async function commitProducts(message) {
+  const payload = { categories: currentCategories, products: currentProducts };
+  const base64 = utf8ToBase64(JSON.stringify(payload, null, 2));
+  const result = await ghPutFile(PRODUCTS_PATH, base64, message, productsSha);
+  productsSha = result.content.sha;
+}
+
+function renderProductList() {
+  const list = document.getElementById("productList");
+  list.innerHTML = "";
+  if (!currentProducts.length) {
+    list.innerHTML = '<p style="color:var(--ink-soft);font-size:0.88rem;">لسه مفيش منتجات</p>';
+    return;
+  }
+  currentProducts.forEach(p => {
+    const row = document.createElement("div");
+    row.className = "p-item";
+    row.innerHTML = `
+      <img src="${p.img}" alt="${p.nameAr}">
+      <div class="info">
+        <div class="name">${p.nameAr} ${p.best ? "⭐" : ""}</div>
+        <div class="meta">${catLabels[p.category] || p.category} · ${p.price} ج.م</div>
+      </div>
+      <div class="actions">
+        <button class="btn-secondary" data-edit="${p.id}">تعديل</button>
+        <button class="btn-danger" data-delete="${p.id}">حذف</button>
+      </div>`;
+    list.appendChild(row);
+  });
+
+  list.querySelectorAll("[data-edit]").forEach(btn => {
+    btn.addEventListener("click", () => startEdit(Number(btn.dataset.edit)));
+  });
+  list.querySelectorAll("[data-delete]").forEach(btn => {
+    btn.addEventListener("click", () => deleteProduct(Number(btn.dataset.delete)));
+  });
+}
+
+function startEdit(id) {
+  const p = currentProducts.find(x => x.id === id);
+  if (!p) return;
+  editingId = id;
+  const form = document.getElementById("productForm");
+  form.category.value = p.category;
+  form.nameAr.value = p.nameAr;
+  form.nameEn.value = p.nameEn;
+  form.price.value = p.price;
+  form.rating.value = p.rating || 5;
+  form.best.checked = !!p.best;
+  document.getElementById("formTitle").textContent = "تعديل: " + p.nameAr;
+  document.getElementById("imgRequiredNote").textContent = "(اختياري — اسيبيها لو مش عايزة تغيّري الصورة)";
+  document.getElementById("submitBtn").textContent = "حفظ التعديل";
+  document.getElementById("cancelEdit").style.display = "block";
+  window.scrollTo({ top: form.offsetTop - 20, behavior: "smooth" });
+}
+
+function resetForm() {
+  editingId = null;
+  const form = document.getElementById("productForm");
+  form.reset();
+  form.rating.value = 5;
+  document.getElementById("formTitle").textContent = "2. إضافة منتج جديد";
+  document.getElementById("imgRequiredNote").textContent = "(مطلوبة)";
+  document.getElementById("submitBtn").textContent = "حفظ المنتج";
+  document.getElementById("cancelEdit").style.display = "none";
+}
+
+document.getElementById("cancelEdit").addEventListener("click", resetForm);
+
+document.getElementById("productForm").addEventListener("submit", async (evt) => {
+  evt.preventDefault();
+  const statusEl = document.getElementById("formStatus");
+  const submitBtn = document.getElementById("submitBtn");
+  if (!getToken()) { setStatus(statusEl, "لازم تحطي توكن GitHub الأول", "err"); return; }
+
+  const form = evt.target;
+  const category = form.category.value;
+  const nameAr = form.nameAr.value.trim();
+  const nameEn = form.nameEn.value.trim();
+  const price = Number(form.price.value);
+  const rating = Number(form.rating.value) || 5;
+  const best = form.best.checked;
+  const file = form.image.files[0];
+
+  if (!editingId && !file) { setStatus(statusEl, "لازم تختاري صورة للمنتج الجديد", "err"); return; }
+
+  submitBtn.disabled = true;
+  setStatus(statusEl, "جاري الحفظ...");
+
+  try {
+    let imgPath;
+    if (file) {
+      const base64 = await resizeImageFile(file);
+      const filename = `${Date.now()}-${slugify(nameEn)}.jpg`;
+      imgPath = `images/products/${filename}`;
+      await ghPutFile(imgPath, base64, `Add image for ${nameEn || nameAr}`);
+    }
+
+    if (editingId) {
+      const idx = currentProducts.findIndex(p => p.id === editingId);
+      currentProducts[idx] = { ...currentProducts[idx], category, nameAr, nameEn, price, rating, best, ...(imgPath ? { img: imgPath } : {}) };
+      await commitProducts(`Update product: ${nameEn || nameAr}`);
+    } else {
+      const id = Date.now();
+      currentProducts.push({ id, category, nameAr, nameEn, price, rating, best, img: imgPath });
+      await commitProducts(`Add product: ${nameEn || nameAr}`);
+    }
+
+    setStatus(statusEl, "تم الحفظ ✅ هيظهر على الموقع خلال دقيقة", "ok");
+    resetForm();
+    renderProductList();
+  } catch (err) {
+    setStatus(statusEl, "خطأ: " + err.message, "err");
+  } finally {
+    submitBtn.disabled = false;
+  }
+});
+
+async function deleteProduct(id) {
+  if (!confirm("متأكدة عايزة تحذفي المنتج ده؟")) return;
+  try {
+    currentProducts = currentProducts.filter(p => p.id !== id);
+    await commitProducts("Delete product via admin");
+    renderProductList();
+  } catch (err) {
+    alert("خطأ في الحذف: " + err.message);
+  }
+}
+
+function renderCategoryImages() {
+  const wrap = document.getElementById("categoryImages");
+  wrap.innerHTML = "";
+  currentCategories.forEach(c => {
+    const row = document.createElement("div");
+    row.className = "cat-row";
+    row.innerHTML = `
+      <img src="${c.img}" alt="${c.nameAr}">
+      <div class="cat-name">${c.nameAr}</div>
+      <div class="cat-controls">
+        <input type="file" accept="image/*" data-cat="${c.key}">
+        <button class="btn-secondary" data-cat-save="${c.key}">حفظ</button>
+      </div>`;
+    wrap.appendChild(row);
+  });
+
+  wrap.querySelectorAll("[data-cat-save]").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const key = btn.dataset.catSave;
+      const input = wrap.querySelector(`input[data-cat="${key}"]`);
+      const file = input.files[0];
+      if (!file) { alert("اختاري صورة الأول"); return; }
+      btn.disabled = true;
+      try {
+        const base64 = await resizeImageFile(file, 900);
+        const path = `images/categories/${key}.jpg`;
+        const existing = await ghGetFile(path);
+        await ghPutFile(path, base64, `Update ${key} category image`, existing ? existing.sha : undefined);
+        const cat = currentCategories.find(c => c.key === key);
+        cat.img = path;
+        await commitProducts(`Update ${key} category image reference`);
+        renderCategoryImages();
+        alert("تم تحديث صورة القسم ✅");
+      } catch (err) {
+        alert("خطأ: " + err.message);
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  });
+}
+
+// Password gate
+document.getElementById("gateSubmit").addEventListener("click", checkPassword);
+document.getElementById("gatePassword").addEventListener("keydown", (e) => { if (e.key === "Enter") checkPassword(); });
+
+function checkPassword() {
+  const val = document.getElementById("gatePassword").value;
+  if (val === ADMIN_PASSWORD) {
+    sessionStorage.setItem("bs_admin_ok", "1");
+    document.getElementById("gate").style.display = "none";
+    document.getElementById("adminContent").style.display = "block";
+    setTokenStatus();
+    loadCatalog();
+  } else {
+    document.getElementById("gateError").textContent = "كلمة السر غلط";
+  }
+}
+
+if (sessionStorage.getItem("bs_admin_ok") === "1") {
+  document.getElementById("gate").style.display = "none";
+  document.getElementById("adminContent").style.display = "block";
+  setTokenStatus();
+  loadCatalog();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "categories": [
+    { "key": "skincare", "img": "https://images.unsplash.com/photo-1600428853876-fb5a850b444f?auto=format&fit=crop&w=700&q=80", "nameAr": "العناية بالبشرة", "nameEn": "Skincare" },
+    { "key": "makeup", "img": "https://images.unsplash.com/photo-1770981667079-d59bbacc0739?auto=format&fit=crop&w=700&q=80", "nameAr": "مكياج", "nameEn": "Makeup" },
+    { "key": "haircare", "img": "https://images.unsplash.com/photo-1779492907379-0894f8807533?auto=format&fit=crop&w=700&q=80", "nameAr": "العناية بالشعر", "nameEn": "Haircare" }
+  ],
+  "products": [
+    { "id": 1, "category": "skincare", "img": "https://images.unsplash.com/photo-1600428853876-fb5a850b444f?auto=format&fit=crop&w=600&q=80", "nameAr": "سيروم فيتامين سي", "nameEn": "Vitamin C Serum", "price": 450, "best": true, "rating": 5 },
+    { "id": 2, "category": "skincare", "img": "https://images.unsplash.com/photo-1748543668676-ea8241cb3886?auto=format&fit=crop&w=600&q=80", "nameAr": "غسول بشرة مرطب", "nameEn": "Hydrating Face Cleanser", "price": 320, "best": false, "rating": 5 },
+    { "id": 3, "category": "skincare", "img": "https://images.unsplash.com/photo-1600428865979-b3c26265fa9a?auto=format&fit=crop&w=600&q=80", "nameAr": "كريم مرطب يومي", "nameEn": "Daily Moisturizer", "price": 380, "best": false, "rating": 5 },
+    { "id": 4, "category": "makeup", "img": "https://images.unsplash.com/photo-1770981667079-d59bbacc0739?auto=format&fit=crop&w=600&q=80", "nameAr": "أحمر شفايف مطفي", "nameEn": "Matte Lipstick", "price": 260, "best": true, "rating": 5 },
+    { "id": 5, "category": "makeup", "img": "https://images.unsplash.com/photo-1578503803703-e818b8a0e00b?auto=format&fit=crop&w=600&q=80", "nameAr": "كريم أساس تغطية كاملة", "nameEn": "Full Coverage Foundation", "price": 520, "best": true, "rating": 4 },
+    { "id": 6, "category": "makeup", "img": "https://images.unsplash.com/photo-1522337956741-4b9ce9700652?auto=format&fit=crop&w=600&q=80", "nameAr": "باليت ظلال عيون", "nameEn": "Eyeshadow Palette", "price": 610, "best": false, "rating": 5 },
+    { "id": 7, "category": "haircare", "img": "https://images.unsplash.com/photo-1775126454577-4846f3e55cc5?auto=format&fit=crop&w=600&q=80", "nameAr": "شامبو بدون سلفات", "nameEn": "Sulfate-Free Shampoo", "price": 290, "best": false, "rating": 5 },
+    { "id": 8, "category": "haircare", "img": "https://images.unsplash.com/photo-1779492907379-0894f8807533?auto=format&fit=crop&w=600&q=80", "nameAr": "ماسك شعر مغذي", "nameEn": "Nourishing Hair Mask", "price": 340, "best": false, "rating": 5 },
+    { "id": 9, "category": "haircare", "img": "https://images.unsplash.com/photo-1608571423539-e951b9b3871e?auto=format&fit=crop&w=600&q=80", "nameAr": "زيت أرجان للشعر", "nameEn": "Argan Hair Oil", "price": 270, "best": false, "rating": 5 }
+  ]
+}
