@@ -109,16 +109,6 @@
       "price": 270,
       "best": false,
       "rating": 5
-    },
-    {
-      "id": 1783953234227,
-      "category": "skincare",
-      "nameAr": "اماني",
-      "nameEn": "amany",
-      "price": 1000,
-      "rating": 5,
-      "best": false,
-      "img": "images/products/1783953232720-amany.jpg"
     }
   ]
 }
