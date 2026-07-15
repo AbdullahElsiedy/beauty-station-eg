@@ -779,9 +779,9 @@ a { text-decoration: none; color: inherit; }
 
     <div class="filters" id="filters">
       <button class="filter-btn active" data-filter="all" data-ar="الكل" data-en="All">الكل</button>
-      <button class="filter-btn" data-filter="skincare" data-ar="العناية بالبشرة" data-en="Skincare">العناية بالبشرة</button>
-      <button class="filter-btn" data-filter="makeup" data-ar="مكياج" data-en="Makeup">مكياج</button>
-      <button class="filter-btn" data-filter="haircare" data-ar="العناية بالشعر" data-en="Haircare">العناية بالشعر</button>
+      <button class="filter-btn" data-filter="hair" data-ar="شعر" data-en="Hair">شعر</button>
+      <button class="filter-btn" data-filter="body" data-ar="جسم" data-en="Body">جسم</button>
+      <button class="filter-btn" data-filter="face" data-ar="وش" data-en="Face">وش</button>
     </div>
 
     <div class="products-grid" id="productsGrid"></div>
@@ -938,20 +938,20 @@ function fallbackImg(id, w = 600) {
 
 const FALLBACK_CATALOG = {
   categories: [
-    { key: "skincare", img: fallbackImg("1600428853876-fb5a850b444f", 700), nameAr: "العناية بالبشرة", nameEn: "Skincare" },
-    { key: "makeup", img: fallbackImg("1770981667079-d59bbacc0739", 700), nameAr: "مكياج", nameEn: "Makeup" },
-    { key: "haircare", img: fallbackImg("1779492907379-0894f8807533", 700), nameAr: "العناية بالشعر", nameEn: "Haircare" },
+    { key: "hair", img: fallbackImg("1779492907379-0894f8807533", 700), nameAr: "شعر", nameEn: "Hair" },
+    { key: "body", img: fallbackImg("1725172045097-2f1eefb84637", 700), nameAr: "جسم", nameEn: "Body" },
+    { key: "face", img: fallbackImg("1600428853876-fb5a850b444f", 700), nameAr: "وش", nameEn: "Face" },
   ],
   products: [
-    { id: 1, category: "skincare", img: fallbackImg("1600428853876-fb5a850b444f"), nameAr: "سيروم فيتامين سي", nameEn: "Vitamin C Serum", price: 450, best: true, rating: 5 },
-    { id: 2, category: "skincare", img: fallbackImg("1748543668676-ea8241cb3886"), nameAr: "غسول بشرة مرطب", nameEn: "Hydrating Face Cleanser", price: 320, best: false, rating: 5 },
-    { id: 3, category: "skincare", img: fallbackImg("1600428865979-b3c26265fa9a"), nameAr: "كريم مرطب يومي", nameEn: "Daily Moisturizer", price: 380, best: false, rating: 5 },
-    { id: 4, category: "makeup", img: fallbackImg("1770981667079-d59bbacc0739"), nameAr: "أحمر شفايف مطفي", nameEn: "Matte Lipstick", price: 260, best: true, rating: 5 },
-    { id: 5, category: "makeup", img: fallbackImg("1578503803703-e818b8a0e00b"), nameAr: "كريم أساس تغطية كاملة", nameEn: "Full Coverage Foundation", price: 520, best: true, rating: 4 },
-    { id: 6, category: "makeup", img: fallbackImg("1522337956741-4b9ce9700652"), nameAr: "باليت ظلال عيون", nameEn: "Eyeshadow Palette", price: 610, best: false, rating: 5 },
-    { id: 7, category: "haircare", img: fallbackImg("1775126454577-4846f3e55cc5"), nameAr: "شامبو بدون سلفات", nameEn: "Sulfate-Free Shampoo", price: 290, best: false, rating: 5 },
-    { id: 8, category: "haircare", img: fallbackImg("1779492907379-0894f8807533"), nameAr: "ماسك شعر مغذي", nameEn: "Nourishing Hair Mask", price: 340, best: false, rating: 5 },
-    { id: 9, category: "haircare", img: fallbackImg("1608571423539-e951b9b3871e"), nameAr: "زيت أرجان للشعر", nameEn: "Argan Hair Oil", price: 270, best: false, rating: 5 },
+    { id: 1, category: "face", img: fallbackImg("1600428853876-fb5a850b444f"), nameAr: "سيروم فيتامين سي", nameEn: "Vitamin C Serum", price: 450, best: true, rating: 5 },
+    { id: 2, category: "face", img: fallbackImg("1748543668676-ea8241cb3886"), nameAr: "غسول بشرة مرطب", nameEn: "Hydrating Face Cleanser", price: 320, best: false, rating: 5 },
+    { id: 3, category: "face", img: fallbackImg("1600428865979-b3c26265fa9a"), nameAr: "كريم مرطب يومي", nameEn: "Daily Moisturizer", price: 380, best: false, rating: 5 },
+    { id: 4, category: "face", img: fallbackImg("1770981667079-d59bbacc0739"), nameAr: "أحمر شفايف مطفي", nameEn: "Matte Lipstick", price: 260, best: true, rating: 5 },
+    { id: 5, category: "face", img: fallbackImg("1578503803703-e818b8a0e00b"), nameAr: "كريم أساس تغطية كاملة", nameEn: "Full Coverage Foundation", price: 520, best: true, rating: 4 },
+    { id: 6, category: "face", img: fallbackImg("1522337956741-4b9ce9700652"), nameAr: "باليت ظلال عيون", nameEn: "Eyeshadow Palette", price: 610, best: false, rating: 5 },
+    { id: 7, category: "hair", img: fallbackImg("1775126454577-4846f3e55cc5"), nameAr: "شامبو بدون سلفات", nameEn: "Sulfate-Free Shampoo", price: 290, best: false, rating: 5 },
+    { id: 8, category: "hair", img: fallbackImg("1779492907379-0894f8807533"), nameAr: "ماسك شعر مغذي", nameEn: "Nourishing Hair Mask", price: 340, best: false, rating: 5 },
+    { id: 9, category: "hair", img: fallbackImg("1608571423539-e951b9b3871e"), nameAr: "زيت أرجان للشعر", nameEn: "Argan Hair Oil", price: 270, best: false, rating: 5 },
   ],
 };
 
@@ -1002,9 +1002,9 @@ function buildWhatsappLink(nameAr, nameEn) {
 
 function categoryLabel(category) {
   const l = {
-    skincare: currentLang === "ar" ? "العناية بالبشرة" : "Skincare",
-    makeup: currentLang === "ar" ? "مكياج" : "Makeup",
-    haircare: currentLang === "ar" ? "العناية بالشعر" : "Haircare",
+    hair: currentLang === "ar" ? "شعر" : "Hair",
+    body: currentLang === "ar" ? "جسم" : "Body",
+    face: currentLang === "ar" ? "وش" : "Face",
   };
   return l[category] || "";
 }

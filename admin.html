@@ -7,17 +7,17 @@
 <title>إدارة Beauty Station</title>
 <style>
 :root {
-  --bg: #fdf3f5;
+  --bg: #f6f2fb;
   --card: #ffffff;
-  --ink: #4a2436;
-  --ink-soft: #8a6472;
-  --gold: #b76e79;
-  --gold-bright: #cf8b91;
-  --gold-deep: #8f4a56;
-  --gold-soft: rgba(183, 110, 121, 0.14);
+  --ink: #2f2246;
+  --ink-soft: #7d6f96;
+  --gold: #9b87c9;
+  --gold-bright: #b19cd9;
+  --gold-deep: #6f5aa3;
+  --gold-soft: rgba(155, 135, 201, 0.14);
   --gradient: linear-gradient(135deg, var(--gold-bright), var(--gold-deep));
-  --line: rgba(74, 36, 54, 0.12);
-  --shadow: 0 10px 30px rgba(148, 74, 94, 0.14);
+  --line: rgba(47, 34, 70, 0.12);
+  --shadow: 0 10px 30px rgba(111, 90, 163, 0.14);
   --radius: 16px;
   --good: #1f9c4f;
   --bad: #c0392b;
@@ -45,7 +45,7 @@ button {
   cursor: pointer; border: none; border-radius: 999px; font-weight: 700; font-size: 0.92rem;
   padding: 12px 22px; font-family: inherit;
 }
-.btn-primary { background: var(--gradient); color: #fff6f4; width: 100%; margin-top: 18px; }
+.btn-primary { background: var(--gradient); color: #fdfbff; width: 100%; margin-top: 18px; }
 .btn-primary:disabled { opacity: 0.6; cursor: default; }
 .btn-secondary { background: var(--gold-soft); color: var(--gold-deep); }
 .btn-danger { background: rgba(192,57,43,0.1); color: var(--bad); }
@@ -135,9 +135,9 @@ details.help li { margin-bottom: 4px; }
       <form id="productForm">
         <label>القسم</label>
         <select name="category" required>
-          <option value="skincare">العناية بالبشرة</option>
-          <option value="makeup">مكياج</option>
-          <option value="haircare">العناية بالشعر</option>
+          <option value="hair">شعر</option>
+          <option value="body">جسم</option>
+          <option value="face">وش</option>
         </select>
 
         <div class="row">
@@ -268,7 +268,7 @@ let currentCategories = [];
 let productsSha = null;
 let editingId = null;
 
-const catLabels = { skincare: "العناية بالبشرة", makeup: "مكياج", haircare: "العناية بالشعر" };
+const catLabels = { hair: "شعر", body: "جسم", face: "وش" };
 
 function setStatus(el, msg, kind) {
   el.textContent = msg;
