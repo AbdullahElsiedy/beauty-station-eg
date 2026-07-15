@@ -175,8 +175,28 @@ a { text-decoration: none; color: inherit; }
 }
 .btn:hover { transform: translateY(-2px); }
 .btn-primary { background: var(--gradient); color: var(--on-gradient); box-shadow: var(--shadow-md); }
+.btn-instagram { background: var(--card); color: #b3306b; border: 1.5px solid #b3306b; }
+.btn-instagram:hover { background: #b3306b; color: #ffffff; }
 .btn-whatsapp { background: var(--card); color: #3ddc84; border: 1.5px solid #25D366; }
 .btn-whatsapp:hover { background: #25D366; color: #ffffff; }
+
+.secondary-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.85rem; font-weight: 700; color: var(--ink-soft);
+  margin-top: 12px;
+}
+.secondary-link:hover { color: #25D366; }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(16px);
+  background: var(--ink); color: var(--bg); padding: 12px 22px; border-radius: 999px;
+  font-size: 0.85rem; font-weight: 700; box-shadow: var(--shadow-md);
+  opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.3s;
+  z-index: 300; white-space: nowrap; max-width: 90vw; overflow: hidden; text-overflow: ellipsis;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+@media (prefers-reduced-motion: reduce) { .toast { transition: opacity 0.15s; } }
 
 /* Hero */
 .hero { padding: 64px 0 50px; position: relative; }
@@ -386,12 +406,19 @@ a { text-decoration: none; color: inherit; }
   margin-top: 10px;
   display: flex; align-items: center; justify-content: center; gap: 8px;
   padding: 11px; border-radius: var(--radius-s);
-  background: rgba(37,211,102,0.12);
-  color: #3ddc84;
+  background: rgba(179,48,107,0.1);
+  color: #b3306b;
   font-weight: 700; font-size: 0.88rem;
   transition: background 0.2s, color 0.2s;
 }
-.product-order:hover { background: #25D366; color: #ffffff; }
+.product-order:hover { background: #b3306b; color: #ffffff; }
+
+.product-order-alt {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  margin-top: 6px;
+  font-size: 0.78rem; font-weight: 600; color: var(--ink-soft);
+}
+.product-order-alt:hover { color: #25D366; }
 
 /* About */
 .about-inner { display: flex; align-items: center; gap: 60px; }
@@ -511,26 +538,39 @@ a { text-decoration: none; color: inherit; }
 }
 .footer-admin-link:hover { opacity: 0.7; }
 
-/* Floating WhatsApp */
-.float-whatsapp {
+/* Floating buttons */
+.float-stack {
   position: fixed;
   bottom: 26px;
   inset-inline-end: 26px;
-  width: 60px; height: 60px;
-  border-radius: 50%;
-  background: #25D366;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.7rem;
-  box-shadow: 0 12px 28px rgba(37, 211, 102, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
   z-index: 200;
-  animation: pulse 2.6s infinite;
 }
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
-  70% { box-shadow: 0 0 0 16px rgba(37, 211, 102, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+.float-instagram, .float-whatsapp {
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-md);
 }
-@media (prefers-reduced-motion: reduce) { .float-whatsapp { animation: none; } }
+.float-instagram {
+  width: 60px; height: 60px;
+  font-size: 1.7rem;
+  background: #b3306b;
+  animation: pulse-ig 2.6s infinite;
+}
+.float-whatsapp {
+  width: 44px; height: 44px;
+  font-size: 1.25rem;
+  background: #25D366;
+}
+@keyframes pulse-ig {
+  0% { box-shadow: 0 0 0 0 rgba(179, 48, 107, 0.5); }
+  70% { box-shadow: 0 0 0 16px rgba(179, 48, 107, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(179, 48, 107, 0); }
+}
+@media (prefers-reduced-motion: reduce) { .float-instagram { animation: none; } }
 
 /* Responsive */
 @media (max-width: 900px) {
@@ -647,7 +687,7 @@ a { text-decoration: none; color: inherit; }
 
     <div class="header-actions">
       <button id="langToggle" class="lang-btn">EN</button>
-      <a id="headerWhatsapp" href="#" target="_blank" rel="noopener" class="header-cta" data-ar="اطلبي الآن" data-en="Order Now">اطلبي الآن</a>
+      <a id="headerInstagram" href="https://ig.me/m/beautystationeg" target="_blank" rel="noopener" class="header-cta" data-ar="اطلبي الآن" data-en="Order Now">اطلبي الآن</a>
       <button id="navToggle" class="nav-toggle" aria-label="menu">☰</button>
     </div>
   </div>
@@ -661,11 +701,15 @@ a { text-decoration: none; color: inherit; }
       <p data-ar="مستحضرات تجميل وعناية بالبشرة أصلية 100%، مختارة بعناية من صيدلانية وخبيرة تجميل عشان توصلك بأمان وثقة." data-en="100% original cosmetics & skincare, hand-picked by a pharmacist & certified beauty specialist for your safety and peace of mind.">مستحضرات تجميل وعناية بالبشرة أصلية 100%، مختارة بعناية من صيدلانية وخبيرة تجميل عشان توصلك بأمان وثقة.</p>
       <div class="hero-actions">
         <a href="#products" class="btn btn-primary" data-ar="تسوقي دلوقتي" data-en="Shop Now">تسوقي دلوقتي</a>
-        <a id="heroWhatsapp" href="#" target="_blank" rel="noopener" class="btn btn-whatsapp">
-          <span>🟢</span>
-          <span data-ar="اطلبي عبر واتساب" data-en="Order via WhatsApp">اطلبي عبر واتساب</span>
+        <a id="heroInstagram" href="https://ig.me/m/beautystationeg" target="_blank" rel="noopener" class="btn btn-instagram">
+          <span>📷</span>
+          <span data-ar="اطلبي عبر إنستجرام" data-en="Order via Instagram">اطلبي عبر إنستجرام</span>
         </a>
       </div>
+      <a id="heroWhatsapp" href="#" target="_blank" rel="noopener" class="secondary-link">
+        <span>🟢</span>
+        <span data-ar="أو تواصلي عبر واتساب" data-en="Or reach us on WhatsApp">أو تواصلي عبر واتساب</span>
+      </a>
       <div class="hero-stats">
         <div class="hero-stat"><strong>+500</strong><span data-ar="عميلة راضية" data-en="Happy clients">عميلة راضية</span></div>
         <div class="hero-stat"><strong>100%</strong><span data-ar="منتجات أصلية" data-en="Original products">منتجات أصلية</span></div>
@@ -797,8 +841,8 @@ a { text-decoration: none; color: inherit; }
         <span class="logo-text">Beauty Station <span class="logo-eg">EG</span></span>
         <p data-ar="جمالك أمانة عندنا. مستحضرات أصلية باختيار صيدلانية متخصصة، وتوصيل لباب البيت في كل المحافظات." data-en="Your beauty is our responsibility. Original products, hand-picked by a pharmacist, delivered to your door nationwide.">جمالك أمانة عندنا. مستحضرات أصلية باختيار صيدلانية متخصصة، وتوصيل لباب البيت في كل المحافظات.</p>
         <div class="footer-social">
-          <a id="footerWhatsapp" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">🟢</a>
           <a href="https://www.instagram.com/beautystationeg?igsh=Z21jYmF3dzJia3Vs" target="_blank" rel="noopener" aria-label="Instagram">📷</a>
+          <a id="footerWhatsapp" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">🟢</a>
         </div>
       </div>
       <div class="footer-col">
@@ -812,6 +856,7 @@ a { text-decoration: none; color: inherit; }
       <div class="footer-col">
         <h5 data-ar="تواصلي معنا" data-en="Get in Touch">تواصلي معنا</h5>
         <ul>
+          <li data-ar="إنستجرام: beautystationeg@" data-en="Instagram: @beautystationeg">إنستجرام: beautystationeg@</li>
           <li data-ar="واتساب: 01014400922" data-en="WhatsApp: 01014400922">واتساب: 01014400922</li>
           <li data-ar="السبت–الخميس، 10ص – 10م" data-en="Sat–Thu, 10am – 10pm">السبت–الخميس، 10ص – 10م</li>
           <li data-ar="الدفع عند الاستلام متاح" data-en="Cash on delivery available">الدفع عند الاستلام متاح</li>
@@ -826,18 +871,66 @@ a { text-decoration: none; color: inherit; }
   </div>
 </footer>
 
-<a id="floatWhatsapp" href="#" target="_blank" rel="noopener" class="float-whatsapp" aria-label="WhatsApp">
-  <span>🟢</span>
-</a>
+<div class="float-stack">
+  <a id="floatInstagram" href="https://ig.me/m/beautystationeg" target="_blank" rel="noopener" class="float-instagram" aria-label="Instagram">
+    <span>📷</span>
+  </a>
+  <a id="floatWhatsapp" href="#" target="_blank" rel="noopener" class="float-whatsapp" aria-label="WhatsApp">
+    <span>🟢</span>
+  </a>
+</div>
+
+<div class="toast" id="toast"></div>
 
 </div>
 
 <script>
 const WHATSAPP_NUMBER = "201014400922";
+const INSTAGRAM_USERNAME = "beautystationeg";
+const INSTAGRAM_URL = `https://ig.me/m/${INSTAGRAM_USERNAME}`;
 let currentLang = "ar";
 
 let products = [];
 let categories = [];
+
+function copyText(text) {
+  const fallback = () => {
+    const temp = document.createElement("textarea");
+    temp.value = text;
+    temp.style.position = "fixed";
+    temp.style.opacity = "0";
+    document.body.appendChild(temp);
+    temp.select();
+    try { document.execCommand("copy"); } catch (err) { /* clipboard unavailable */ }
+    document.body.removeChild(temp);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).catch(fallback);
+  } else {
+    fallback();
+  }
+}
+
+let toastTimer;
+function showToast(msg) {
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove("show"), 3200);
+}
+
+function buildOrderMessage(nameAr, nameEn) {
+  if (!nameAr && !nameEn) {
+    return currentLang === "ar" ? "أهلاً، حابة أعرف أكتر عن منتجاتكم" : "Hi, I'd like to know more about your products";
+  }
+  return currentLang === "ar" ? `أهلاً، حابة أطلب: ${nameAr}` : `Hi, I'd like to order: ${nameEn}`;
+}
+
+function orderViaInstagram(nameAr, nameEn) {
+  copyText(buildOrderMessage(nameAr, nameEn));
+  showToast(currentLang === "ar" ? "تم نسخ الرسالة، الصقيها في شات الإنستجرام 💌" : "Message copied — paste it in the Instagram chat 💌");
+}
 
 function fallbackImg(id, w = 600) {
   return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
@@ -949,8 +1042,11 @@ function renderProducts(filter = "all") {
         <span class="product-cat">${categoryLabel(p.category)}</span>
         <span class="product-name">${currentLang === "ar" ? p.nameAr : p.nameEn}</span>
         <span class="product-price">${p.price} ${currentLang === "ar" ? "ج.م" : "EGP"}</span>
-        <a class="product-order" target="_blank" rel="noopener" href="${buildWhatsappLink(p.nameAr, p.nameEn)}">
-          <span>🟢</span><span>${currentLang === "ar" ? "اطلبي عبر واتساب" : "Order via WhatsApp"}</span>
+        <a class="product-order" target="_blank" rel="noopener" href="${INSTAGRAM_URL}" data-order-ar="${p.nameAr}" data-order-en="${p.nameEn}">
+          <span>📷</span><span>${currentLang === "ar" ? "اطلبي عبر إنستجرام" : "Order via Instagram"}</span>
+        </a>
+        <a class="product-order-alt" target="_blank" rel="noopener" href="${buildWhatsappLink(p.nameAr, p.nameEn)}">
+          <span>🟢</span><span>${currentLang === "ar" ? "أو واتساب" : "or WhatsApp"}</span>
         </a>
       </div>`;
     grid.appendChild(card);
@@ -1011,7 +1107,7 @@ function renderFaqs() {
 function updateStaticWhatsappLinks() {
   const msg = currentLang === "ar" ? "أهلاً، حابة أعرف أكتر عن منتجاتكم" : "Hi, I'd like to know more about your products";
   const link = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-  ["heroWhatsapp", "footerWhatsapp", "floatWhatsapp", "headerWhatsapp"].forEach(id => {
+  ["heroWhatsapp", "footerWhatsapp", "floatWhatsapp"].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.href = link;
   });
@@ -1054,6 +1150,17 @@ document.getElementById("filters").addEventListener("click", (e) => {
   document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
   renderProducts(btn.dataset.filter);
+});
+
+document.getElementById("productsGrid").addEventListener("click", (e) => {
+  const btn = e.target.closest(".product-order");
+  if (!btn) return;
+  orderViaInstagram(btn.dataset.orderAr, btn.dataset.orderEn);
+});
+
+["headerInstagram", "heroInstagram", "floatInstagram"].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener("click", () => orderViaInstagram());
 });
 
 window.addEventListener("scroll", () => {
